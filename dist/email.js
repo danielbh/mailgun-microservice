@@ -8,15 +8,14 @@ var _mailgunJs = require('mailgun-js');
 
 var _mailgunJs2 = _interopRequireDefault(_mailgunJs);
 
+var _config = require('./config');
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-var apiKey = process.env.MAIL_API_KEY; /**
-                                        * Created by danielhollcraft on 12/10/16.
-                                        */
-
-var domain = process.env.MAIL_DOMAIN;
-
-var mg = (0, _mailgunJs2.default)({ apiKey: apiKey, domain: domain });
+/**
+ * Created by danielhollcraft on 12/10/16.
+ */
+var mg = (0, _mailgunJs2.default)({ apiKey: _config.apiKey, domain: _config.domain });
 
 function send(_ref) {
   var name = _ref.name,
@@ -26,8 +25,8 @@ function send(_ref) {
 
 
   var data = {
-    from: process.env.FROM_EMAIL,
-    to: process.env.DEFAULT_TO_EMAIL,
+    from: _config.from,
+    to: _config.to,
     subject: subject,
     text: message + (' \n \n  Sender e-mail: ' + name + ' <' + email + '>')
   };

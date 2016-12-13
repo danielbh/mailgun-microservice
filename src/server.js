@@ -2,6 +2,7 @@ import restify from 'restify'
 //import email from './email'
 //json schema validator
 import AJV from 'ajv'
+import config from './config'
 
 const server = restify.createServer({});
 
@@ -10,7 +11,7 @@ server.use(restify.bodyParser());
 server.use(restify.gzipResponse());
 
 // Start listening for requests
-server.listen(process.env.PORT || 8080);
+server.listen(config.port || 8080);
 
 server.post({
   path: '/contact',

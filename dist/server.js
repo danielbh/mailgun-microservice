@@ -4,32 +4,31 @@ var _restify = require('restify');
 
 var _restify2 = _interopRequireDefault(_restify);
 
-var _email = require('./email');
-
-var _email2 = _interopRequireDefault(_email);
-
 var _ajv = require('ajv');
 
 var _ajv2 = _interopRequireDefault(_ajv);
 
+var _config = require('./config');
+
+var _config2 = _interopRequireDefault(_config);
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
+//import email from './email'
+//json schema validator
 var server = _restify2.default.createServer({});
 
 // For url query params
-
-// json schema validator
-server.use(_restify2.default.queryParser());
-
-server.use(_restify2.default.CORS({
-  origins: ['https://makeappsfaster.com, http://localhost'],
-  credentials: true
-}));
+server.use(_restify2.default.bodyParser());
+server.use(_restify2.default.gzipResponse());
 
 // Start listening for requests
-server.listen(process.env.PORT || 8080);
+server.listen(_config2.default.port || 8080);
 
-server.post('/contact', function (req, res, next) {
+server.post({
+  path: '/contact',
+  versions: ['1.0.0']
+}, function (req, res, next) {
 
   var ajv = new _ajv2.default();
 
@@ -46,14 +45,15 @@ server.post('/contact', function (req, res, next) {
     "required": ["name", "email", "subject", "message"]
   });
 
-  validate(req.params).then(function (valid) {
-    _email2.default.send(req.params);
+  validate(JSON.parse(req.body)).then(function (valid) {
+    email.send(req.params);
     res.send(200, "Form submit successful");
   }).catch(function (error) {
     if (error) {
       res.send(400, error.errors);
+      console.error(error.errors);
     }
   });
 
   return next();
-});
+}); //
