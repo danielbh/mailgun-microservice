@@ -2,7 +2,7 @@ A microservice for handling contact forms using mailgun and restify that could b
 
 This repo requires a [mailgun](http://www.mailgun.com/) account, and it is recommended you get that account verified.
 
-**Environmental variables are found in *src/config.***
+**Environmental variables are found in src/config.**
 
 They are:
 
