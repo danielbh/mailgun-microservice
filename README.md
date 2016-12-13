@@ -1,6 +1,6 @@
 A microservice for handling contact forms using mailgun and restify that could be deployed with your favorite Docker supported deploy method. As a suggestion you could use [Dokku](https://dokku.viewdocs.io/dokku/) or [now.sh](https://now.sh).
 
-This repo requires a[mailgun](http://www.mailgun.com/) account, and it is recommended you get that account verified.
+This repo requires a [mailgun](http://www.mailgun.com/) account, and it is recommended you get that account verified.
 
 **Environmental variables are found in *src/config.***
 
